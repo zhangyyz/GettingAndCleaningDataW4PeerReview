@@ -67,7 +67,7 @@ colnames(train_test)<-gsub("\\(|\\)", "", colnames(train_test))
 newdataset <- train_test[, lapply(.SD, mean), by=list(subject, activity)]
 
 #Save the dataset into a file called 'tidydataset.csv'
-write.csv(newdataset, "tidydataset.csv",row.names = FALSE)
+write.table(newdataset, "tidydataset.txt",row.names = FALSE, sep=",")
 
 #Generate a codebook
 library(memisc)
