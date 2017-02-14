@@ -1,4 +1,4 @@
-#Note: My Environment is RStudio in Windows 7
+#Note: My Environment is RStudio 1.0.136 in Windows 7
 #The following pacakges are used in this script and they may need to be installed
 #by running the install.packages command:
 #  install.packages("data.table")
