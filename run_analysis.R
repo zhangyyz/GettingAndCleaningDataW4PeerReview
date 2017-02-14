@@ -63,8 +63,8 @@ colnames(train_test)<-gsub("^f", "frequency", colnames(train_test))
 #Get the average value of each variable for each activity and each subject
 newdataset <- train_test[, lapply(.SD, mean), by=list(subject, activity)]
 
-#Save the dataset into a file called 'finaldataset.csv'
-write.csv(newdataset, "finaldataset.csv",row.names = FALSE)
+#Save the dataset into a file called 'tidydataset.csv'
+write.csv(newdataset, "tidydataset.csv",row.names = FALSE)
 
 #Generate a codebook
 library(memisc)
