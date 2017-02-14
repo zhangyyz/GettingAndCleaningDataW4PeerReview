@@ -53,12 +53,15 @@ train_test <- train_test[, grep('std\\(\\)|mean\\(\\)|subject|activity'
 activitylabels <- fread("dataset/UCI HAR Dataset/activity_labels.txt", header = FALSE)
 train_test[, activity:=activitylabels$V2[activity]]
 
-#Replace abbreviations with full names for better descriptive purpose.
+#For better descriptive purpose, replace abbreviations with full names.
 colnames(train_test)<-gsub("Mag", "Magnitude", colnames(train_test))
 colnames(train_test)<-gsub("Acc", "Accelerometer", colnames(train_test))
 colnames(train_test)<-gsub("^t", "time", colnames(train_test))
 colnames(train_test)<-gsub("Gyro", "Gyroscope", colnames(train_test))
 colnames(train_test)<-gsub("^f", "frequency", colnames(train_test))
+#For better descriptive purpose, remove brackets "(" and ")" from names
+colnames(train_test)<-gsub("\\(|\\)", "", colnames(train_test))
+
 
 #Get the average value of each variable for each activity and each subject
 newdataset <- train_test[, lapply(.SD, mean), by=list(subject, activity)]
@@ -68,7 +71,7 @@ write.csv(newdataset, "tidydataset.csv",row.names = FALSE)
 
 #Generate a codebook
 library(memisc)
-codebook(newdataset)
+Write(codebook(newdataset), file = "codebook.txt")
 
 #Show the date when the script is executed
 Sys.time()
