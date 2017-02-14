@@ -68,20 +68,24 @@ colnames(train_test)<-gsub("^t", "time", colnames(train_test))
 colnames(train_test)<-gsub("Gyro", "Gyroscope", colnames(train_test))
 colnames(train_test)<-gsub("^f", "frequency", colnames(train_test))
 ```
-###Step 13: Get the average value of each variable for each activity and each subject
+
+###Step 13: For better descriptive purpose, remove brackets "(" and ")" from names
+colnames(train_test)<-gsub("\\(|\\)", "", colnames(train_test))
+
+###Step 14: Get the average value of each variable for each activity and each subject
 ```
 newdataset <- train_test[, lapply(.SD, mean), by=list(subject, activity)]
 ```
-###Step 14: Save the dataset into a file called 'tidydataset.csv'
+###Step 15: Save the dataset into a file called 'tidydataset.txt'
 ```
-write.csv(newdataset, "tidydataset.csv",row.names = FALSE)
+write.table(newdataset, "tidydataset.txt",row.names = FALSE, sep=",")
 ```
-###Step 15: Generate a codebook
+###Step 16: Generate a codebook
 ```
 library(memisc)
 Write(codebook(newdataset), file = "codebook.txt")
 ```
-###Step 16: Show the date when the script is executed
+###Step 17: Show the date when the script is executed
 ```
 Sys.time()
 ```
